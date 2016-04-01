@@ -1,0 +1,105 @@
+//RandomNumber.java
+public class RandomNumber {
+	
+	long PreviousNumber;
+	int NumberLenght = 4;
+	public RandomNumber()
+	{
+		PreviousNumber = System.currentTimeMillis() % Integer.MAX_VALUE;
+	}
+	
+	public RandomNumber(int Seed)
+	{
+		PreviousNumber = Seed;
+		String number = Long.toString(PreviousNumber);
+		NumberLenght = number.length();
+	}
+	
+	public int generate()
+	{
+		PreviousNumber++;
+		PreviousNumber = PreviousNumber * PreviousNumber;
+		String number = Long.toString(PreviousNumber);
+		int a = (number.length()/2) - (NumberLenght/2);
+		StringBuilder NewNumber = new StringBuilder();
+		for(int i = a; i < a + NumberLenght && i >= 0; i++)
+		{
+			NewNumber.append(number.charAt(i));
+		}
+		PreviousNumber = Long.parseLong(NewNumber.toString());
+		return (int) PreviousNumber;
+	}
+}
+
+//App.java
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.Scanner;
+
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+
+public class App {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Enter message to be sent:");
+		Scanner Input = new Scanner(System.in);
+		String str = Input.nextLine();
+
+		System.out.println("Enter your key: ");
+		int PK = Input.nextInt();
+        RandomNumber R1 = new RandomNumber(PK);
+        RandomNumber R2 = new RandomNumber(PK);
+        
+        try
+        {
+	        byte[] key = Integer.toString(R1.generate()).getBytes("UTF-8");
+	        MessageDigest SHA = MessageDigest.getInstance("SHA-1");
+	        key = SHA.digest(key);
+	        key = Arrays.copyOf(key, 16);
+	        SecretKeySpec SK = new SecretKeySpec(key,"AES");
+	        // build the initialisation vector.  This example is all zeros, but it 
+	        // could be any value or generated using a random number generator.
+	        byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	        IvParameterSpec IVspec = new IvParameterSpec(iv);
+	        
+	        Cipher Encrypt;
+	        Encrypt = Cipher.getInstance("AES/CBC/PKCS5Padding");
+	        Encrypt.init(Cipher.ENCRYPT_MODE, SK, IVspec);
+	        byte[] encrypted = Encrypt.doFinal(str.getBytes());
+	        System.out.println("Encrypted string : "+ Arrays.toString(encrypted));
+	        
+	        
+	        byte[] key1 = Integer.toString(R2.generate()).getBytes("UTF-8");
+	        MessageDigest SHA1 = MessageDigest.getInstance("SHA-1");
+	        key1 = SHA1.digest(key1);
+	        key1 = Arrays.copyOf(key1, 16);
+	        SecretKeySpec SK1 = new SecretKeySpec(key1,"AES");
+	        
+	        Cipher Decrypt;
+	        Decrypt = Cipher.getInstance("AES/CBC/PKCS5Padding");
+	        Decrypt.init(Cipher.DECRYPT_MODE, SK1, IVspec);
+	        byte[] decrypted = Decrypt.doFinal(encrypted);
+	        System.out.println("Decrypted string : "+ new String(decrypted, "UTF-8"));
+	        
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        	Input.close();
+        }
+        Input.close();
+	}
+}
+----------------------------------------------------------------
+Output:
+
+Enter message to be sent:
+This is a message
+Enter your key: 
+34512
+Encrypted string : [-101, 29, -116, 102, -49, -115, 92, -6, 118, -85, 14, -91, 36, 33, 85, 115, -90, 22, 56, -25, -28, 10, -97, 9, 121, -76, 38, -85, -73, 55, -64, 57]
+Decrypted string : This is a message

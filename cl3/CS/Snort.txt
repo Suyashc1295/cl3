@@ -1,0 +1,619 @@
+====================== Snort Terminal ===========================
+[root@localhost snort]# snort -i p3p1 -A full -c /etc/snort/snort.conf 
+Running in IDS mode
+
+        --== Initializing Snort ==--
+Initializing Output Plugins!
+Initializing Preprocessors!
+Initializing Plug-ins!
+Parsing Rules file "/etc/snort/snort.conf"
+PortVar 'HTTP_PORTS' defined :  [ 80:81 311 383 591 593 901 1220 1414 1741 1830 2301 2381 2809 3037 3128 3702 4343 4848 5250 6988 7000:7001 7144:7145 7510 7777 7779 8000 8008 8014 8028 8080 8085 8088 8090 8118 8123 8180:8181 8243 8280 8300 8800 8888 8899 9000 9060 9080 9090:9091 9443 9999 11371 34443:34444 41080 50002 55555 ]
+PortVar 'SHELLCODE_PORTS' defined :  [ 0:79 81:65535 ]
+PortVar 'ORACLE_PORTS' defined :  [ 1024:65535 ]
+PortVar 'SSH_PORTS' defined :  [ 22 ]
+PortVar 'FTP_PORTS' defined :  [ 21 2100 3535 ]
+PortVar 'SIP_PORTS' defined :  [ 5060:5061 5600 ]
+PortVar 'FILE_DATA_PORTS' defined :  [ 80:81 110 143 311 383 591 593 901 1220 1414 1741 1830 2301 2381 2809 3037 3128 3702 4343 4848 5250 6988 7000:7001 7144:7145 7510 7777 7779 8000 8008 8014 8028 8080 8085 8088 8090 8118 8123 8180:8181 8243 8280 8300 8800 8888 8899 9000 9060 9080 9090:9091 9443 9999 11371 34443:34444 41080 50002 55555 ]
+PortVar 'GTP_PORTS' defined :  [ 2123 2152 3386 ]
+Detection:
+   Search-Method = AC-Full-Q
+    Split Any/Any group = enabled
+    Search-Method-Optimizations = enabled
+    Maximum pattern length = 20
+Tagged Packet Limit: 256
+Loading dynamic engine /usr/local/lib/snort_dynamicengine/libsf_engine.so... done
+Loading all dynamic detection libs from /usr/local/lib/snort_dynamicrules...
+WARNING: No dynamic libraries found in directory /usr/local/lib/snort_dynamicrules.
+  Finished Loading all dynamic detection libs from /usr/local/lib/snort_dynamicrules
+Loading all dynamic preprocessor libs from /usr/local/lib/snort_dynamicpreprocessor/...
+  Loading dynamic preprocessor library /usr/local/lib/snort_dynamicpreprocessor//libsf_sdf_preproc.so... done
+  Loading dynamic preprocessor library /usr/local/lib/snort_dynamicpreprocessor//libsf_imap_preproc.so... donepreprocessor library /usr/local/lib/snort_dynamicpreprocessor//libsf_modbus_preproc.so... done
+  Loading dynamic preprocessor library /usr/local/lib/snort_dynamicpreprocessor//libsf_dns_preproc.so... done
+  Finished Loading all dynamic preprocessor libs from /usr/local/lib/snort_dynamicpreprocessor/
+Log directory = /var/log/snort
+WARNING: ip4 normalizations disabled because not inline.
+WARNING: tcp normalizations disabled because not inline.
+WARNING: icmp4 normalizations disabled because not inline.
+WARNING: ip6 normalizations disabled because not inline.
+WARNING: icmp6 normalizations disabled because not inline.
+Frag3 global config:
+    Max frags: 65536
+    Fragment memory cap: 4194304 bytes
+Frag3 engine config:
+    Bound Address: default
+    Target-based policy: WINDOWS
+    Fragment timeout: 180 seconds
+    Fragment min_ttl:   1
+    Fragment Anomalies: Alert
+    Overlap Limit:     10
+    Min fragment Length:     100
+      Max Expected Streams: 768
+Stream global config:
+    Track TCP sessions: ACTIVE
+    Max TCP sessions: 262144
+    TCP cache pruning timeout: 30 seconds
+    TCP cache nominal timeout: 3600 seconds
+    Memcap (for reassembly packet storage): 8388608
+    Track UDP sessions: ACTIVE
+    Max UDP sessions: 131072
+    UDP cache pruning timeout: 30 seconds
+    UDP cache nominal timeout: 180 seconds
+    Track ICMP sessions: INACTIVE
+    Track IP sessions: INACTIVE
+    Log info if session memory consumption exceeds 1048576
+    Send up to 2 active responses
+    Wait at least 5 seconds between responses
+    Protocol Aware Flushing: ACTIVE
+        Maximum Flush Point: 16000
+Stream TCP Policy config:
+    Bound Address: default
+    Reassembly Policy: WINDOWS
+    Timeout: 180 seconds
+    Limit on TCP Overlaps: 10
+    Maximum number of bytes to queue per session: 1048576
+    Maximum number of segs to queue per session: 2621
+    Options:
+        Require 3-Way Handshake: YES
+        3-Way Handshake Timeout: 180
+        Detect Anomalies: YES
+    Reassembly Ports:
+      21 client (Footprint) 
+      22 client (Footprint) 
+      23 client (Footprint) 
+      25 client (Footprint) 
+      42 client (Footprint) 
+      53 client (Footprint) 
+      79 client (Footprint) 
+      80 client (Footprint) server (Footprint)
+      81 client (Footprint) server (Footprint)
+      109 client (Footprint) 
+      110 client (Footprint) 
+      111 client (Footprint) 
+      113 client (Footprint) 
+      119 client (Footprint) 
+      135 client (Footprint) 
+      136 client (Footprint) 
+      137 client (Footprint) 
+      139 client (Footprint) 
+      143 client (Footprint) 
+      161 client (Footprint) 
+      additional ports configured but not printed.
+Stream UDP Policy config:
+    Timeout: 180 seconds
+HttpInspect Config:
+    GLOBAL CONFIG
+      Detect Proxy Usage:       NO
+      IIS Unicode Map Filename: /etc/snort/unicode.map
+      IIS Unicode Map Codepage: 1252
+      Memcap used for logging URI and Hostname: 150994944
+      Max Gzip Memory: 838860
+      Max Gzip Sessions: 1613
+      Gzip Compress Depth: 65535
+      Gzip Decompress Depth: 65535
+    DEFAULT SERVER CONFIG:
+      Server profile: All
+      Ports (PAF): 80 81 311 383 591 593 901 1220 1414 1741 1830 2301 2381 2809 3037 3128 3702 4343 4848 5250 6988 7000 7001 7144 7145 7510 7777 7779 8000 8008 8014 8028 8080 8085 8088 8090 8118 8123 8180 8181 8243 8280 8300 8800 8888 8899 9000 9060 9080 9090 9091 9443 9999 11371 34443 34444 41080 50002 55555 
+      Server Flow Depth: 0
+      Client Flow Depth: 0
+      Max Chunk Length: 500000
+      Small Chunk Length Evasion: chunk size <= 10, threshold >= 5 times
+      Max Header Field Length: 750
+      Max Number Header Fields: 100
+      Max Number of WhiteSpaces allowed with header folding: 200
+      Inspect Pipeline Requests: YES
+      URI Discovery Strict Mode: NO
+      Allow Proxy Usage: NO
+      Disable Alerting: NO
+      Oversize Dir Length: 500
+      Only inspect URI: NO
+      Normalize HTTP Headers: NO
+      Inspect HTTP Cookies: YES
+      Inspect HTTP Responses: YES
+      Extract Gzip from responses: YES
+      Decompress response files:   
+      Unlimited decompression of gzip data from responses: YES
+      Normalize Javascripts in HTTP Responses: YES
+      Max Number of WhiteSpaces allowed with Javascript Obfuscation in HTTP responses: 200
+      Normalize HTTP Cookies: NO
+      Enable XFF and True Client IP: NO
+      Log HTTP URI data: NO
+      Log HTTP Hostname data: NO
+      Extended ASCII code support in URI: NO
+      Ascii: YES alert: NO
+      Double Decoding: YES alert: NO
+      %U Encoding: YES alert: YES
+      Bare Byte: YES alert: NO
+      UTF 8: YES alert: NO
+      IIS Unicode: YES alert: NO
+      Multiple Slash: YES alert: NO
+      IIS Backslash: YES alert: NO
+      Directory Traversal: YES alert: NO
+      Web Root Traversal: YES alert: NO
+      Apache WhiteSpace: YES alert: NO
+      IIS Delimiter: YES alert: NO
+      IIS Unicode Map: GLOBAL IIS UNICODE MAP CONFIG
+      Non-RFC Compliant Characters: 0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 
+      Whitespace Characters: 0x09 0x0b 0x0c 0x0d 
+rpc_decode arguments:
+    Ports to decode RPC on: 111 32770 32771 32772 32773 32774 32775 32776 32777 32778 32779 
+    alert_fragments: INACTIVE
+    alert_large_fragments: INACTIVE
+    alert_incomplete: INACTIVE
+    alert_multiple_requests: INACTIVE
+FTPTelnet Config:
+    GLOBAL CONFIG
+      Inspection Type: stateful
+      Check for Encrypted Traffic: YES alert: NO
+      Continue to check encrypted data: YES
+    TELNET CONFIG:
+      Ports: 23 
+      Are You There Threshold: 20
+      Normalize: YES
+      Detect Anomalies: YES
+    FTP CONFIG:
+      FTP Server: default
+        Ports (PAF): 21 2100 3535 
+        Check for Telnet Cmds: YES alert: YES
+        Ignore Telnet Cmd Operations: YES alert: YES
+        Ignore open data channels: NO
+      FTP Client: default
+        Check for Bounce Attacks: YES alert: YES
+        Check for Telnet Cmds: YES alert: YES
+        Ignore Telnet Cmd Operations: YES alert: YES
+        Max Response Length: 256
+SMTP Config:
+    Ports: 25 465 587 691 
+    Inspection Type: Stateful
+    Normalize: ATRN AUTH BDAT DATA DEBUG EHLO EMAL ESAM ESND ESOM ETRN EVFY EXPN HELO HELP IDENT MAIL NOOP ONEX QUEU QUIT RCPT RSET SAML SEND STARTTLS SOML TICK TIME TURN TURNME VERB VRFY X-EXPS XADR XAUTH XCIR XEXCH50 XGEN XLICENSE X-LINK2STATE XQUE XSTA XTRN XUSR CHUNKING X-ADAT X-DRCP X-ERCP X-EXCH50 
+    Ignore Data: No
+    Ignore TLS Data: No
+    Ignore SMTP Alerts: No
+    Max Command Line Length: 512
+    Max auth Command Line Length: 1000
+    Max Specific Command Line Length: 
+       ATRN:255 AUTH:246 BDAT:255 DATA:246 DEBUG:255 
+       EHLO:500 EMAL:255 ESAM:255 ESND:255 ESOM:255 
+       ETRN:246 EVFY:255 EXPN:255 HELO:500 HELP:500 
+       IDENT:255 MAIL:260 NOOP:255 ONEX:246 QUEU:246 
+       QUIT:246 RCPT:300 RSET:246 SAML:246 SEND:246 
+       SIZE:255 STARTTLS:246 SOML:246 TICK:246 TIME:246 
+       TURN:246 TURNME:246 VERB:246 VRFY:255 X-EXPS:246 
+       XADR:246 XAUTH:246 XCIR:246 XEXCH50:246 XGEN:246 
+       XLICENSE:246 X-LINK2STATE:246 XQUE:246 XSTA:246 XTRN:246 
+       XUSR:246 
+    Max Header Line Length: 1000
+    Max Response Line Length: 512
+    X-Link2State Alert: Yes
+    Drop on X-Link2State Alert: No
+    Alert on commands: None
+    Alert on unknown commands: No
+    SMTP Memcap: 838860
+    MIME Max Mem: 838860
+    Base64 Decoding: Enabled
+    Base64 Decoding Depth: Unlimited
+    Quoted-Printable Decoding: Enabled
+    Quoted-Printable Decoding Depth: Unlimited
+    Unix-to-Unix Decoding: Enabled
+    Unix-to-Unix Decoding Depth: Unlimited
+    Non-Encoded MIME attachment Extraction: Enabled
+    Non-Encoded MIME attachment Extraction Depth: Unlimited
+    Log Attachment filename: Enabled
+    Log MAIL FROM Address: Enabled
+    Log RCPT TO Addresses: Enabled
+    Log Email Headers: Enabled
+    Email Hdrs Log Depth: 1464
+SSH config: 
+    Autodetection: ENABLED
+    Challenge-Response Overflow Alert: ENABLED
+    SSH1 CRC32 Alert: ENABLED
+    Server Version String Overflow Alert: ENABLED
+    Protocol Mismatch Alert: ENABLED
+    Bad Message Direction Alert: DISABLED
+    Bad Payload Size Alert: DISABLED
+    Unrecognized Version Alert: DISABLED
+    Max Encrypted Packets: 20  
+    Max Server Version String Length: 100  
+    MaxClientBytes: 19600 (Default) 
+    Ports:
+	22
+DCE/RPC 2 Preprocessor Configuration
+  Global Configuration
+    DCE/RPC Defragmentation: Enabled
+    Memcap: 102400 KB
+    Events: co 
+    SMB Fingerprint policy: Disabled
+  Server Default Configuration
+    Policy: WinXP
+    Detect ports (PAF)
+      SMB: 139 445 
+      TCP: 135 
+      UDP: 135 
+      RPC over HTTP server: 593 
+      RPC over HTTP proxy: None
+    Autodetect ports (PAF)
+      SMB: None
+      TCP: 1025-65535 
+      UDP: 1025-65535 
+      RPC over HTTP server: 1025-65535 
+      RPC over HTTP proxy: None
+    Invalid SMB shares: C$ D$ ADMIN$ 
+    Maximum SMB command chaining: 3 commands
+    SMB file inspection: Disabled
+DNS config: 
+    DNS Client rdata txt Overflow Alert: ACTIVE
+    Obsolete DNS RR Types Alert: INACTIVE
+    Experimental DNS RR Types Alert: INACTIVE
+    Ports: 53
+SSLPP config:
+    Encrypted packets: not inspected
+    Ports:
+      443      465      563      636      989
+      992      993      994      995     7801
+     7802     7900     7901     7902     7903
+     7904     7905     7906     7907     7908
+     7909     7910     7911     7912     7913
+     7914     7915     7916     7917     7918
+     7919     7920
+    Server side data is trusted
+    Maximum SSL Heartbeat length: 0
+Sensitive Data preprocessor config: 
+    Global Alert Threshold: 25
+    Masked Output: DISABLED
+SIP config: 
+    Max number of sessions: 40000  
+    Max number of dialogs in a session: 4 (Default) 
+    Status: ENABLED
+    Ignore media channel: DISABLED
+    Max URI length: 512  
+    Max Call ID length: 80  
+    Max Request name length: 20 (Default) 
+    Max From length: 256 (Default) 
+    Max To length: 256 (Default) 
+    Max Via length: 1024 (Default) 
+    Max Contact length: 512  
+    Max Content length: 2048  
+    Ports:
+	5060	5061	5600
+    Methods:
+	  invite cancel ack bye register options refer subscribe update join info message notify benotify do qauth sprack publish service unsubscribe prack
+IMAP Config:
+    Ports: 143 
+    IMAP Memcap: 838860
+    MIME Max Mem: 838860
+    Base64 Decoding: Enabled
+    Base64 Decoding Depth: Unlimited
+    Quoted-Printable Decoding: Enabled
+    Quoted-Printable Decoding Depth: Unlimited
+    Unix-to-Unix Decoding: Enabled
+    Unix-to-Unix Decoding Depth: Unlimited
+    Non-Encoded MIME attachment Extraction: Enabled
+    Non-Encoded MIME attachment Extraction Depth: Unlimited
+POP Config:
+    Ports: 110 
+    POP Memcap: 838860
+    MIME Max Mem: 838860
+    Base64 Decoding: Enabled
+    Base64 Decoding Depth: Unlimited
+    Quoted-Printable Decoding: Enabled
+    Quoted-Printable Decoding Depth: Unlimited
+    Unix-to-Unix Decoding: Enabled
+    Unix-to-Unix Decoding Depth: Unlimited
+    Non-Encoded MIME attachment Extraction: Enabled
+    Non-Encoded MIME attachment Extraction Depth: Unlimited
+Modbus config: 
+    Ports:
+	502
+DNP3 config: 
+    Memcap: 262144
+    Check Link-Layer CRCs: ENABLED
+    Ports:
+	20000
+Reputation config: 
+WARNING: Can't find any whitelist/blacklist entries. Reputation Preprocessor disabled.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++
+Initializing rule chains...
+7091 Snort rules read
+    7091 detection rules
+    0 decoder rules
+    0 preprocessor rules
+7091 Option Chains linked into 244 Chain Headers
+0 Dynamic rules
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++-------------------[Rule Port Counts]---------------------------------------
+|             tcp     udp    icmp      ip
+|     src    2011      14       0       0
+|     dst    3876     961       0       0
+|     any     223       3       5       0
+|      nc       5       0       1       0
+|     s+d       1       1       0       0
++----------------------------------------------------------------------------
+
++-----------------------[detection-filter-config]------------------------------
+| memory-cap : 1048576 bytes
++-----------------------[detection-filter-rules]-------------------------------
+-------------------------------------------------------------------------------
+
++-----------------------[rate-filter-config]-----------------------------------
+| memory-cap : 1048576 bytes
++-----------------------[rate-filter-rules]------------------------------------
+| none
+-------------------------------------------------------------------------------
+
++-----------------------[event-filter-config]----------------------------------
+| memory-cap : 1048576 bytes
++-----------------------[event-filter-global]----------------------------------
++-----------------------[event-filter-local]-----------------------------------
+| none
++-----------------------[suppression]------------------------------------------
+| none
+-------------------------------------------------------------------------------
+Rule application order: activation->dynamic->pass->drop->sdrop->reject->alert->log
+Verifying Preprocessor Configurations!
+WARNING: flowbits key 'file.rp' is set but not ever checked.
+WARNING: flowbits key 'file.m4a' is set but not ever checked.
+WARNING: flowbits key 'file.plp' is set but not ever checked.
+WARNING: flowbits key 'file.m4p' is set but not ever checked.
+WARNING: flowbits key 'file.wmp_playlist' is set but not ever checked.
+WARNING: flowbits key 'file.aiff' is set but not ever checked.
+279 out of 1024 flowbits in use.
+
+[ Port Based Pattern Matching Memory ]
++- [ Aho-Corasick Summary ] -------------------------------------
+| Storage Format    : Full-Q 
+| Finite Automaton  : DFA
+| Alphabet Size     : 256 Chars
+| Sizeof State      : Variable (1,2,4 bytes)
+| Instances         : 305
+|     1 byte states : 290
+|     2 byte states : 15
+|     4 byte states : 0
+| Characters        : 140626
+| States            : 108606
+| Transitions       : 12773422
+| State Density     : 45.9%
+| Patterns          : 7392
+| Match States      : 7528
+| Memory (MB)       : 55.80
+|   Patterns        : 0.83
+|   Match Lists     : 1.76
+|   DFA
+|     1 byte states : 1.66
+|     2 byte states : 51.01
+|     4 byte states : 0.00
++----------------------------------------------------------------
+[ Number of patterns truncated to 20 bytes: 405 ]
+pcap DAQ configured to passive.
+Acquiring network traffic from "p3p1".
+Reload thread starting...
+Reload thread started, thread 0x7f8239b3d700 (5741)
+Decoding Ethernet
+
+        --== Initialization Complete ==--
+
+   ,,_     -*> Snort! <*-
+  o"  )~   Version 2.9.8.0 GRE (Build 229) 
+   ''''    By Martin Roesch & The Snort Team: http://www.snort.org/contact#team
+           Copyright (C) 2014-2015 Cisco and/or its affiliates. All rights reserved.
+           Copyright (C) 1998-2013 Sourcefire, Inc., et al.
+           Using libpcap version 1.5.3
+           Using PCRE version: 8.33 2013-05-28
+           Using ZLIB version: 1.2.8
+
+           Rules Engine: SF_SNORT_DETECTION_ENGINE  Version 2.4  <Build 1>
+           Preprocessor Object: SF_DNS  Version 1.1  <Build 4>
+           Preprocessor Object: SF_MODBUS  Version 1.1  <Build 1>
+           Preprocessor Object: SF_SMTP  Version 1.1  <Build 9>
+           Preprocessor Object: SF_POP  Version 1.0  <Build 1>
+Commencing packet processing (pid=5740)
+
+
+==================== Input ==========================
+[root@localhost snort]# ping 10.22.23.12
+PING 10.22.23.12 (10.22.23.12) 56(84) bytes of data.
+64 bytes from 10.22.23.12: icmp_seq=1 ttl=64 time=0.373 ms
+64 bytes from 10.22.23.12: icmp_seq=2 ttl=64 time=0.373 ms
+
+[root@localhost snort]# ping google.com
+PING google.com (216.58.220.14) 56(84) bytes of data.
+64 bytes from bom05s05-in-f14.1e100.net (216.58.220.14): icmp_seq=1 ttl=56 time=34.0 ms
+64 bytes from bom05s05-in-f14.1e100.net (216.58.220.14): icmp_seq=2 ttl=56 time=34.2 ms
+
+[root@localhost snort]# ping yahoo.com
+PING yahoo.com (206.190.36.45) 56(84) bytes of data.
+64 bytes from ir1.fp.vip.gq1.yahoo.com (206.190.36.45): icmp_seq=1 ttl=46 time=254 ms
+64 bytes from ir1.fp.vip.gq1.yahoo.com (206.190.36.45): icmp_seq=2 ttl=46 time=257 ms
+
+[user1@localhost ~]$ ping 10.22.23.1
+PING 10.22.23.1 (10.22.23.1) 56(84) bytes of data.
+64 bytes from 10.22.23.1: icmp_seq=1 ttl=64 time=0.295 ms
+64 bytes from 10.22.23.1: icmp_seq=2 ttl=64 time=0.374 ms
+
+======================= Output ======================
+[**] [1:11013:0] ICMP Received [**]
+[Priority: 0] 
+01/21-12:48:25.151126 216.58.220.14 -> 10.22.23.1
+ICMP TTL:56 TOS:0x0 ID:17975 IpLen:20 DgmLen:84
+Type:0  Code:0  ID:5742  Seq:1  ECHO REPLY
+
+[**] [1:11013:0] ICMP Received [**]
+[Priority: 0] 
+01/21-12:48:26.156187 216.58.220.14 -> 10.22.23.1
+ICMP TTL:56 TOS:0x0 ID:17984 IpLen:20 DgmLen:84
+Type:0  Code:0  ID:5742  Seq:2  ECHO REPLY
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:48:56.077832 10.22.23.1:35479 -> 54.243.197.71:80
+TCP TTL:64 TOS:0x0 ID:14995 IpLen:20 DgmLen:52 DF
+***A***F Seq: 0xF802D0EA  Ack: 0x51BE286D  Win: 0x106  TcpLen: 32
+TCP Options (3) => NOP NOP TS: 4975966 311346075 
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:48:57.936014 10.22.23.1:44562 -> 216.58.220.3:443
+TCP TTL:64 TOS:0x0 ID:55736 IpLen:20 DgmLen:60 DF
+******S* Seq: 0xA4152D18  Ack: 0x0  Win: 0x7210  TcpLen: 40
+TCP Options (5) => MSS: 1460 SackOK TS: 4977824 0 NOP WS: 7 
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:48:58.648695 10.22.23.1:38977 -> 216.58.196.3:443
+TCP TTL:64 TOS:0x0 ID:25630 IpLen:20 DgmLen:60 DF
+******S* Seq: 0x97699377  Ack: 0x0  Win: 0x7210  TcpLen: 40
+TCP Options (5) => MSS: 1460 SackOK TS: 4978537 0 NOP WS: 7 
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:49:00.208353 10.22.23.1:40448 -> 216.58.220.4:443
+TCP TTL:64 TOS:0x0 ID:26343 IpLen:20 DgmLen:60 DF
+******S* Seq: 0xECD79B67  Ack: 0x0  Win: 0x7210  TcpLen: 40
+TCP Options (5) => MSS: 1460 SackOK TS: 4980096 0 NOP WS: 7 
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:49:00.363121 10.22.23.1:40448 -> 216.58.220.4:443
+TCP TTL:64 TOS:0x0 ID:26346 IpLen:20 DgmLen:52 DF
+***A**** Seq: 0xECD79CE7  Ack: 0xD8D29DB8  Win: 0xED  TcpLen: 32
+TCP Options (3) => NOP NOP TS: 4980251 311346504 
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:49:00.976411 10.22.23.1:43615 -> 216.58.220.14:443
+TCP TTL:64 TOS:0x0 ID:3371 IpLen:20 DgmLen:52 DF
+***A**** Seq: 0x6A94F75A  Ack: 0xE2012C4  Win: 0xF5  TcpLen: 32
+TCP Options (3) => NOP NOP TS: 4980865 311346561 
+
+[**] [1:11012:0] Packet Sent [**]
+[Priority: 0] 
+01/21-12:49:04.002067 10.22.23.1:35503 -> 54.243.197.71:80
+TCP TTL:64 TOS:0x0 ID:63235 IpLen:20 DgmLen:60 DF
+******S* Seq: 0xB192FB51  Ack: 0x0  Win: 0x7210  TcpLen: 40
+TCP Options (5) => MSS: 1460 SackOK TS: 4983890 0 NOP WS: 7 
+
+[**] [1:11010:0] Yahoo Website Accesed [**]
+[Priority: 0] 
+01/21-12:03:27.850371 106.10.198.33:443 -> 10.22.23.1:55679
+TCP TTL:64 TOS:0x0 ID:48835 IpLen:20 DgmLen:1500 DF
+***A**** Seq: 0xF1462723  Ack: 0x78CFB424  Win: 0x16A0  TcpLen: 32
+TCP Options (3) => NOP NOP TS: 311073267 2247553 
+
+
+================== Snort.conf ==================
+
+###################################################
+# Step #1: Set the network variables.  For more information, see README.variables
+###################################################
+
+# Setup the network addresses you are protecting
+ipvar HOME_NET 10.22.23.1
+
+# Set up the external network addresses. Leave as "any" in most situations
+ipvar EXTERNAL_NET $HOME_NET
+
+# List of DNS servers on your network 
+ipvar DNS_SERVERS 8.8.8.8
+
+# List of SMTP servers on your network
+ipvar SMTP_SERVERS $HOME_NET
+
+# List of web servers on your network
+ipvar HTTP_SERVERS $HOME_NET
+
+# List of sql servers on your network 
+ipvar SQL_SERVERS $HOME_NET
+
+# List of telnet servers on your network
+ipvar TELNET_SERVERS $HOME_NET
+
+# List of ssh servers on your network
+ipvar SSH_SERVERS $HOME_NET
+
+# List of ftp servers on your network
+ipvar FTP_SERVERS $HOME_NET
+
+# List of sip servers on your network
+ipvar SIP_SERVERS $HOME_NET
+
+# List of ports you run web servers on
+portvar HTTP_PORTS [80,81,311,383,591,593,901,1220,1414,1741,1830,2301,2381,2809,3037,3128,3702,4343,4848,5250,6988,7000,7001,7144,7145,7510,7777,7779,8000,8008,8014,8028,8080,8085,8088,8090,8118,8123,8180,8181,8243,8280,8300,8800,8888,8899,9000,9060,9080,9090,9091,9443,9999,11371,34443,34444,41080,50002,55555]
+
+# List of ports you want to look for SHELLCODE on.
+portvar SHELLCODE_PORTS !80
+
+# List of ports you might see oracle attacks on
+portvar ORACLE_PORTS 1024:
+
+# List of ports you want to look for SSH connections on:
+portvar SSH_PORTS 22
+
+# List of ports you run ftp servers on
+portvar FTP_PORTS [21,2100,3535]
+
+# List of ports you run SIP servers on
+portvar SIP_PORTS [5060,5061,5600]
+
+# List of file data ports for file inspection
+portvar FILE_DATA_PORTS [$HTTP_PORTS,110,143]
+
+# List of GTP ports for GTP preprocessor
+portvar GTP_PORTS [2123,2152,3386]
+
+# other variables, these should not be modified
+ipvar AIM_SERVERS [64.12.24.0/23,64.12.28.0/23,64.12.161.0/24,64.12.163.0/24,64.12.200.0/24,205.188.3.0/24,205.188.5.0/24,205.188.7.0/24,205.188.9.0/24,205.188.153.0/24,205.188.179.0/24,205.188.248.0/24]
+
+# Path to your rules files (this can be a relative path)
+# Note for Windows users:  You are advised to make this an absolute path,
+# such as:  c:\snort\rules
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
+
+# If you are using reputation preprocessor set these
+# Currently there is a bug with relative paths, they are relative to where snort is
+# not relative to snort.conf like the above variables
+# This is completely inconsistent with how other vars work, BUG 89986
+# Set the absolute path appropriately
+var WHITE_LIST_PATH /etc/snort/rules
+var BLACK_LIST_PATH /etc/snort/rules
+
+###################################################
+# Step #4: Configure dynamic loaded libraries.  
+# For more information, see Snort Manual, Configuring Snort - Dynamic Modules
+###################################################
+
+# path to dynamic preprocessor libraries
+dynamicpreprocessor directory /usr/local/lib/snort_dynamicpreprocessor/
+
+# path to base preprocessor engine
+dynamicengine /usr/local/lib/snort_dynamicengine/libsf_engine.so
+
+# path to dynamic rules libraries
+dynamicdetection directory /usr/local/lib/snort_dynamicrules
+
+# alerts
+alert tcp any any -> $HOME_NET any (content: "yahoo"; msg: "Yahoo Website Accesed"; sid:11010;)
+alert tcp $HOME_NET any -> 216.58.220.14 any (content: "google"; msg: "Google Website Accesed"; sid:11011;)
+alert tcp $HOME_NET any -> any any (msg:"Packet Sent"; sid:11012;)
+alert icmp any any -> $HOME_NET any (msg: "ICMP Received"; sid:11013;)

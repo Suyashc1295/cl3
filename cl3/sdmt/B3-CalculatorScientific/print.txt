@@ -1,0 +1,332 @@
+-------------Main Activity-------------
+package com.example.scientificcalculator;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+    }
+
+    public void onClickexp(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+
+        int num1, exp;
+
+        num1 = Integer.parseInt(ed1.getText().toString());
+        exp = Integer.parseInt(ed2.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.pow(num1, exp)));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClicktan(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        ed2.setText("");
+
+        double angle;
+
+        angle = Integer.parseInt(ed1.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.tan(Math.toRadians(angle))));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClickcos(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        ed2.setText("");
+
+        double angle;
+
+        angle = Integer.parseInt(ed1.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.cos(Math.toRadians(angle))));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClicksin(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        ed2.setText("");
+
+        double angle;
+
+        angle = Integer.parseInt(ed1.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.sin(Math.toRadians(angle))));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClickroot(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        ed2.setText("");
+
+        double num;
+
+        num = Integer.parseInt(ed1.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.sqrt(num)));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClickln(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        ed2.setText("");
+
+        double num;
+
+        num = Integer.parseInt(ed1.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.log(num)));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClicklog(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        ed2.setText("");
+
+        double num;
+
+        num = Integer.parseInt(ed1.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(Math.log10(num)));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClickC(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+        EditText result = (EditText)findViewById(R.id.editText3);
+        ed2.setText("");
+        ed1.setText("");
+        result.setText("");
+    }
+
+    public void onClickadd(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+
+        int num1, num2;
+
+        num1 = Integer.parseInt(ed1.getText().toString());
+        num2 = Integer.parseInt(ed2.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(num1+num2));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClicksub(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+
+        int num1, num2;
+
+        num1 = Integer.parseInt(ed1.getText().toString());
+        num2 = Integer.parseInt(ed2.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(num1-num2));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClickmul(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+
+        int num1, num2;
+
+        num1 = Integer.parseInt(ed1.getText().toString());
+        num2 = Integer.parseInt(ed2.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+        result.append(Double.toString(num1*num2));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+
+    public void onClickdiv(View v){
+        EditText ed1 = (EditText)findViewById(R.id.editText2);
+        EditText ed2 = (EditText)findViewById(R.id.editText);
+
+        int num1, num2;
+
+        num1 = Integer.parseInt(ed1.getText().toString());
+        num2 = Integer.parseInt(ed2.getText().toString());
+
+        EditText result = (EditText)findViewById(R.id.editText3);
+
+        if(num2 == 0)
+            result.append("Invalid");
+        else
+            result.append(Double.toString(num1/num2));
+        int y = (result.getLineCount() - 1) * result.getLineHeight();
+        result.scrollTo(0, y);
+        result.append("\n");
+    }
+}
+
+
+
+
+
+--------------Layout XML--------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center"
+              android:weightSum="1">
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:hint="Enter first number here"
+            android:id="@+id/editText"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:imeOptions="actionDone"
+            android:hint="Enter second number here"
+            android:id="@+id/editText2"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Result"
+            android:id="@+id/textView"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:inputType="none"
+            android:ems="10"
+            android:id="@+id/editText3" android:editable="false"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="^"
+                android:id="@+id/button" android:onClick="onClickexp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SQR ROOT"
+                android:id="@+id/button2" android:onClick="onClickroot"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:id="@+id/button3" android:onClick="onClickdiv"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TAN"
+                android:id="@+id/button4" android:onClick="onClicktan"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LN"
+                android:id="@+id/button5" android:onClick="onClickln"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:id="@+id/button6" android:onClick="onClickmul"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COS"
+                android:id="@+id/button7" android:onClick="onClickcos"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOG"
+                android:id="@+id/button8" android:onClick="onClicklog"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:id="@+id/button9" android:onClick="onClicksub"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIN"
+                android:id="@+id/button10" android:onClick="onClicksin"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:id="@+id/button11" android:onClick="onClickC"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:id="@+id/button12" android:onClick="onClickadd"/>
+    </LinearLayout>
+</LinearLayout>

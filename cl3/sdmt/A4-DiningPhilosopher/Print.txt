@@ -1,0 +1,207 @@
+//Dining.java
+import com.mongodb.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Dining {
+
+public static void main(String[] args) {
+    Lock forks[] = new ReentrantLock[5];
+    
+    try {
+		MongoClient mongoClient = new MongoClient("localhost");
+		System.out.println("Connection to mongodb successful.");
+		DB db = mongoClient.getDB( "mydb" );
+		System.out.println("Database 'mydb' created.");
+		DBCollection coll = db.createCollection("mycol", null);
+		System.out.println("Collection 'mycol' created.");
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
+   for(int i = 0; i<5; i++){
+        forks[i] = new ReentrantLock(); 
+    }
+
+    Thread p1 = new Thread(new Philosopher(forks[4], forks[0], "first"));
+    Thread p2 = new Thread(new Philosopher(forks[0], forks[1], "second"));
+    Thread p3 = new Thread(new Philosopher(forks[1], forks[2], "third"));
+    Thread p4 = new Thread(new Philosopher(forks[2], forks[3], "fourth"));
+    Thread p5 = new Thread(new Philosopher(forks[3], forks[4], "fifth"));
+
+    p1.start();
+    p2.start();
+    p3.start();
+    p4.start();
+    p5.start(); 
+
+
+}
+}
+
+class Philosopher implements Runnable {
+Lock leftFork = new ReentrantLock();
+Lock rightFork = new ReentrantLock();
+String name;
+
+
+public Philosopher(Lock leftFork, Lock rightFork, String name) {
+    this.leftFork = leftFork;
+    this.rightFork = rightFork;
+    this.name = name; 
+}
+
+@Override
+public void run() {
+	try {
+    think(name);
+	eat(leftFork, rightFork, name); 
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+private void eat(Lock leftFork, Lock rightFork, String name) throws Exception{
+    leftFork.lock();
+    rightFork.lock();
+    try
+    {
+    MongoClient mongoClient = new MongoClient("localhost");
+    DB db = mongoClient.getDB( "mydb" );
+    DBCollection coll = db.getCollection("mycol");
+
+    System.out.println(name + " eating...");
+    BasicDBObject doc1 = new BasicDBObject(name , " eating...");
+    coll.insert(doc1);
+
+        Thread.sleep(1000);
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } 
+    finally{
+        System.out.println(name + " done eating and now thinking...");
+        MongoClient mongoClient = new MongoClient("localhost");
+        DB db = mongoClient.getDB( "mydb" );
+		DBCollection coll = db.getCollection("mycol");
+		BasicDBObject doc2 = new BasicDBObject(name , " done eating and now thinking...");
+		coll.insert(doc2);
+        leftFork.unlock();
+        rightFork.unlock(); 
+    }
+}
+
+public void think(String name) throws Exception{
+	try
+    {
+    MongoClient mongoClient = new MongoClient("localhost");
+    DB db = mongoClient.getDB( "mydb" );
+    DBCollection coll = db.getCollection("mycol");
+    System.out.println(name + " thinking...");
+    BasicDBObject doc = new BasicDBObject(name , " thinking...");
+    coll.insert(doc);
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } 
+}
+
+}
+
+--------------------OUTPUT-----------------------------
+
+Server Output:-----------------------------------------
+student@student-OptiPlex-3020:~$ sudo su
+[sudo] password for student: 
+root@student-OptiPlex-3020:/home/student/Documents# cd mongodb-linux-x86_64-3.0.6/
+root@student-OptiPlex-3020:/home/student/Documents/mongodb-linux-x86_64-3.0.6# cd bin/
+root@student-OptiPlex-3020:/home/student/Documents/mongodb-linux-x86_64-3.0.6/bin# ./mongod --dbpath=/home/student/Documents/data/db
+2016-01-22T08:55:44.652+0530 I JOURNAL  [initandlisten] journal dir=/home/student/Documents/data/db/journal
+2016-01-22T08:55:44.652+0530 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2016-01-22T08:59:48.545+0530 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:57956 #14 (14 connections now open)
+2016-01-22T08:59:48.548+0530 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:57958 #15 (15 connections now open)
+2016-01-22T08:59:49.554+0530 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:57960 #16 (16 connections now open)
+2016-01-22T08:59:49.564+0530 I NETWORK  [conn6] end connection 127.0.0.1:57932 (15 connections now open)
+2016-01-22T08:59:49.564+0530 I NETWORK  [conn11] end connection 127.0.0.1:57950 (15 connections now open)
+2016-01-22T09:06:43.348+0530 I STORAGE  [FileAllocator] done allocating datafile /home/student/Documents/data/db/mydb.0, size: 64MB,  took 0.025 secs
+2016-01-22T09:06:44.369+0530 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:58062 #67 (7 connections now open)
+2016-01-22T09:06:49.432+0530 I NETWORK  [conn69] end connection 127.0.0.1:58066 (15 connections now open)
+2016-01-22T09:06:49.432+0530 I NETWORK  [conn67] end connection 127.0.0.1:58062 (15 connections now open)
+2016-01-22T09:06:49.432+0530 I NETWORK  [conn73] end connection 127.0.0.1:58074 (13 connections now open)
+2016-01-22T09:06:49.433+0530 I NETWORK  [conn74] end connection 127.0.0.1:58076 (13 connections now open)
+2016-01-22T09:06:49.432+0530 I NETWORK  [conn63] end connection 127.0.0.1:58054 (15 connections now open)
+2016-01-22T09:07:28.897+0530 I NETWORK  [conn1] end connection 127.0.0.1:57930 (0 connections now open)
+^Z
+[1]+  Stopped                 ./mongod --dbpath=/home/student/Documents/data/db
+root@student-OptiPlex-3020:/home/student/Documents/mongodb-linux-x86_64-3.0.6/bin# 
+
+Client output:-----------------------------------------
+student@student-OptiPlex-3020:~$ sudo su
+[sudo] password for student: 
+root@student-OptiPlex-3020:/home/student/Documents# cd mongodb-linux-x86_64-3.0.6/
+root@student-OptiPlex-3020:/home/student/Documents/mongodb-linux-x86_64-3.0.6# cd bin/
+root@student-OptiPlex-3020:/home/student/Documents/mongodb-linux-x86_64-3.0.6/bin# ./mongo
+MongoDB shell version: 3.0.6
+connecting to: test
+Server has startup warnings: 
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] 
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] 
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] 
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+2016-01-22T08:55:44.790+0530 I CONTROL  [initandlisten] 
+> show dbs;
+local  0.078GB
+> show dbs;
+local  0.078GB
+mydb   0.078GB
+> use dbs;
+switched to db dbs
+> show collections;
+mycol
+system.indexes
+> db.mycol.find();
+{ "_id" : ObjectId("56a1a3cb848ec0076cfb7b4a"), "third" : " thinking..." }
+{ "_id" : ObjectId("56a1a3cb848ec0076cfb7b47"), "first" : " thinking..." }
+{ "_id" : ObjectId("56a1a3cb848ec0076cfb7b49"), "fourth" : " thinking..." }
+{ "_id" : ObjectId("56a1a3cb848ec0076cfb7b48"), "fifth" : " thinking..." }
+{ "_id" : ObjectId("56a1a3cb848ec0076cfb7b4b"), "second" : " thinking..." }
+{ "_id" : ObjectId("56a1a3cc848ec0076cfb7b4c"), "fifth" : " eating..." }
+{ "_id" : ObjectId("56a1a3cd848ec0076cfb7b4d"), "fifth" : " done eating and now thinking..." }
+{ "_id" : ObjectId("56a1a3cd848ec0076cfb7b4e"), "fourth" : " eating..." }
+{ "_id" : ObjectId("56a1a3ce848ec0076cfb7b4f"), "fourth" : " done eating and now thinking..." }
+{ "_id" : ObjectId("56a1a3ce848ec0076cfb7b50"), "third" : " eating..." }
+{ "_id" : ObjectId("56a1a3cf848ec0076cfb7b51"), "third" : " done eating and now thinking..." }
+{ "_id" : ObjectId("56a1a3cf848ec0076cfb7b52"), "second" : " eating..." }
+{ "_id" : ObjectId("56a1a3d0848ec0076cfb7b53"), "second" : " done eating and now thinking..." }
+{ "_id" : ObjectId("56a1a3d0848ec0076cfb7b54"), "first" : " eating..." }
+{ "_id" : ObjectId("56a1a3d1848ec0076cfb7b55"), "first" : " done eating and now thinking..." }
+> exit
+bye
+root@student-OptiPlex-3020:/home/student/Documents/mongodb-linux-x86_64-3.0.6/bin# 
+
+Eclipse output:-----------------------------------------
+Connection to mongodb successful.
+Database 'mydb' created.
+Collection 'mycol' created.
+first thinking...
+third thinking...
+second thinking...
+fourth thinking...
+fifth thinking...
+third eating...
+third done eating and now thinking...
+second eating...
+second done eating and now thinking...
+first eating...
+first done eating and now thinking...
+fifth eating...
+fifth done eating and now thinking...
+fourth eating...
+fourth done eating and now thinking...
